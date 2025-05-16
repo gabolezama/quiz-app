@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { style } from '../stylesForScreen/about';
 import { useTabsContext } from './_layout';
 
 
@@ -8,10 +9,11 @@ export default function TabTwoScreen() {
   const [email, setEmail] = useState('')
   const isButtonDisabled = !name || !email
   const {handleSendResults} = useTabsContext();
+  const styles = style(isButtonDisabled);
   return (
     <ScrollView >
-      <View style={{ display: 'flex', alignItems: 'center', padding: '5%' }}>
-        <View style={{ width: '90%' }}>
+      <View style={styles.mainContainer}>
+        <View style={styles.container}>
           <Text style={[styles.centeredText, styles.boldStyle, styles.size]}>ABACUS</Text>
           <Text style={[styles.centeredText, styles.size]}>What's your financial archetype?</Text>
           <Text style={styles.justifiedText}>
@@ -40,23 +42,11 @@ export default function TabTwoScreen() {
           <TextInput style={styles.input} value={email} onChangeText={setEmail}/>
         </View>
         <TouchableOpacity
-          style={{
-            backgroundColor: isButtonDisabled? 'grey':'#3498db',
-            paddingVertical: 12,
-            paddingHorizontal: 25,
-            borderRadius: 8,
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginTop: '2%'
-          }}
+          style={styles.sendButton}
           disabled={isButtonDisabled}
           onPress={() => handleSendResults({name, email})}
         >
-          <Text style={{
-            color: 'white',
-            fontSize: 16,
-            fontWeight: 'bold',
-          }}>
+          <Text style={styles.buttonText}>
             Send Data
           </Text>
         </TouchableOpacity>
@@ -64,26 +54,3 @@ export default function TabTwoScreen() {
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  boldStyle: {
-    fontWeight: 'bold'
-  },
-  size: {
-    fontSize: 20
-  },
-  centeredText: {
-    textAlign: 'center'
-  },
-  justifiedText: {
-    textAlign: 'justify'
-  },
-  input:{
-    backgroundColor: 'white',
-    borderRadius: 8,
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    borderWidth: 1,
-    borderColor: '#ccc', // Un gris claro para un borde sutil
-  },
-});

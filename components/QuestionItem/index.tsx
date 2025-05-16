@@ -3,6 +3,7 @@ import { IQuestions } from "@/utils/dataFetch";
 import { useEffect, useState } from "react";
 import { FlatList, Text, View } from "react-native";
 import { RadioButton } from "../RadioButton";
+import { styles } from "./styles";
 
 export default ({
   id,
@@ -12,7 +13,7 @@ export default ({
   answerType
 }: IQuestions) => {
   const {handleSetResults} = useTabsContext() as ITabsContext;
-  const radioButtonValues: number[] = [0,1,2,3]
+  const radioButtonValues: number[] = [0,1,2,3];
   const [selectedObj, setSelectedObj] = useState<any>(resetSelection());
 
   function resetSelection() {
@@ -51,24 +52,14 @@ export default ({
   }, [])  
   
   return (
-    <View style={{ 
-        display: 'flex',
-        flexDirection: 'row',
-        marginTop: '2%',
-        alignItems: 'center'
-    }}>
+    <View style={styles.container}>
       <FlatList
         data={radioButtonValues}
         renderItem={({item}) => <RadioButton onPress={handleToggle} selected={isSelected(item)} value={item}/>}
         horizontal={true}
-        style={{
-            maxWidth: '30%'
-        }}
+        style={styles.list}
       />
-      <Text style={{
-        maxWidth: '70%',
-        textAlign: 'justify'
-      }}>{text}</Text>
+      <Text style={styles.text}>{text}</Text>
     </View>
   );
 };

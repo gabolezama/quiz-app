@@ -3,6 +3,7 @@ import { getQuizQuestions, IQuizQuestions } from '@/utils/dataFetch';
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { FlatList, SafeAreaView, ScrollView, Text, TouchableOpacity } from 'react-native';
+import { styles } from '../stylesForScreen/index';
 import { useTabsContext } from './_layout';
 
 const emptyQuizQuestion = [{
@@ -23,34 +24,20 @@ export default function HomeScreen() {
   },[])
 
   return (
-    <SafeAreaView style={{
-      padding: '5%'
-    }}>
+    <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <FlatList
           data={quizQuestions}
           renderItem={({ item }) => <QuestionComponent {...item} />}
         />
-        <Text style={{textAlign: 'center'}}>
+        <Text style={styles.centeredText}>
           Once you finish answering these questions, we'll need some extra data to make your profile, this button will take you there:
         </Text>
         <TouchableOpacity 
-          style={{
-            backgroundColor: '#3498db', // Un tono de azul bonito
-            paddingVertical: 12,
-            paddingHorizontal: 25,
-            borderRadius: 8,
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginTop: '2%'
-          }}
+          style={styles.continueButton}
           onPress={() => router.push('/about')}
         >
-          <Text style={{
-            color: 'white',
-            fontSize: 16,
-            fontWeight: 'bold',
-          }}>
+          <Text style={styles.buttonText}>
             Continue
           </Text>
         </TouchableOpacity>
