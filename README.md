@@ -47,3 +47,5 @@ If you want to learn more about other options that are available, please read th
 
    These two screens are linked by a tabs navigator, so feel free to use the tabs to switch between them. However, they are also linked by logic; you will not be able to send data if you haven't completed the quiz form first. In that case, an alert will pop up asking you to answer the questions and return later. Otherwise, if everything is okay and you provide your name and email, this alert will show a message indicating that your data will be sent.
 
+   IMPORTANT NOTE: The Quiz Screen can receive a dynamic array of questions, so you can add as many questions as you need to this quiz as long as its format is maintained. A JSON file is currently used to retrieve this information and build the render. The information is hardcoded at the moment, but again, as long as the format is maintained, it could also be fetched from a remote endpoint.
+
