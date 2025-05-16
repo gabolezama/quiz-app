@@ -1,30 +1,39 @@
+import { ITabsContext, useTabsContext } from "@/app/(tabs)/_layout";
 import { IQuestions } from "@/utils/dataFetch";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FlatList, Text, View } from "react-native";
 import { RadioButton } from "../RadioButton";
 
 export default ({
   id,
+  topicId,
   index,
   text,
   answerType
 }: IQuestions) => {
+  const {handleSetResults} = useTabsContext() as ITabsContext;
+  const radioButtonValues: number[] = [0,1,2,3]
   const [selectedObj, setSelectedObj] = useState<any>(resetSelection());
-  const radioButtonValues = [0,1,2,3]
 
-  function resetSelection () {
-    return radioButtonValues?.reduce((prev, curr) => {
-      return ({
-        ...prev,
-        [curr]: false
-      })
-    }, {})
+  function resetSelection() {
+    return radioButtonValues.reduce((accumulator, currentValue) => {
+      return {
+        ...accumulator,
+        [currentValue]: false,
+      };
+    }, {});
   }
   const handleToggle = (tag: string) => {
-    setSelectedObj({
+    const newSelection = {
       ...resetSelection(),
       [tag]: true
+    }
+    handleSetResults({
+      topicId,
+      questionId: id,
+      selectedObj: newSelection
     })
+    setSelectedObj(newSelection)
   }
   const isSelected = (item: any) => {
     if(selectedObj)
@@ -32,6 +41,14 @@ export default ({
     else
       return false
   }
+
+  useEffect(() => {
+    handleSetResults({
+      topicId,
+      questionId: id,
+      selectedObj
+    })
+  }, [])  
   
   return (
     <View style={{ 

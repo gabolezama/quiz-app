@@ -1,4 +1,5 @@
 export interface IQuestions {
+    topicId?: number,
     id: number,
     index: number,
     text: string,

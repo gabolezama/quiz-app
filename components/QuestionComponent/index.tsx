@@ -3,6 +3,7 @@ import { FlatList, Text, View } from "react-native";
 import QuestionItem from "../QuestionItem";
 
 export default ({
+  id,
   title,
   questions
 }: IQuizQuestions) => {
@@ -10,13 +11,13 @@ export default ({
     <View style={{ marginBottom: '5%'}}>
       <Text>{title}</Text>
       <FlatList
-        data={[1,2,3,4].map(i => i)}
+        data={[0,1,2,3].map(i => i)}
         renderItem={({item}) => <Text style={{marginRight: 20}}>{item}</Text>}
         horizontal={true}
       />
       <FlatList
         data={questions}
-        renderItem={({item}) => <QuestionItem {...item}/>}
+        renderItem={({item}) => <QuestionItem topicId={id} {...item}/>}
       />
     </View>
   );
