@@ -3,7 +3,7 @@ import { getQuizQuestions, IQuizQuestions } from '@/utils/dataFetch';
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { FlatList, SafeAreaView, ScrollView, Text, TouchableOpacity } from 'react-native';
-import { styles } from '../stylesForScreen/index';
+import { style } from '../stylesForScreen/index';
 import { useTabsContext } from './_layout';
 
 const emptyQuizQuestion = [{
@@ -16,8 +16,10 @@ const emptyQuizQuestion = [{
 
 export default function HomeScreen() {
   const router = useRouter();
-  const {handleSendResults} = useTabsContext();
+  const {isContinueDisabled} = useTabsContext();
   const [quizQuestions, setQuizQuestions] = useState<IQuizQuestions[]>(emptyQuizQuestion);
+  const styles = style(isContinueDisabled)
+  
   useEffect(() => {
     const data = getQuizQuestions();
     setQuizQuestions(data)
@@ -35,6 +37,7 @@ export default function HomeScreen() {
         </Text>
         <TouchableOpacity 
           style={styles.continueButton}
+          disabled={isContinueDisabled}
           onPress={() => router.push('/about')}
         >
           <Text style={styles.buttonText}>

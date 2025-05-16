@@ -1,11 +1,12 @@
 import { Tabs } from 'expo-router';
-import React, { createContext, useContext, useState } from 'react';
-import { Platform } from 'react-native';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { Alert, Platform } from 'react-native';
 
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 interface IUserData {name: string, email: string}
 export interface ITabsContext {
+  isContinueDisabled: boolean,
   handleSendResults: ({name, email}: IUserData) => void;
   handleSetResults: (data: any) => void;
 }
@@ -16,10 +17,11 @@ interface IResultData {
   topicId: number;
 }
 interface IResults{
-  key: IResultData[]
+  [topicId: number]: IResultData[];
 }
 
 const TabsContext = createContext<ITabsContext>({ 
+  isContinueDisabled: true,
   handleSendResults: () => null,
   handleSetResults: () => null
 })
@@ -28,7 +30,8 @@ export const useTabsContext = () => {
   return useContext(TabsContext)
 }
 export default function TabLayout() {
-  const [dataResults, setDataResults] = useState<IResults | object>({})
+  const [dataResults, setDataResults] = useState<IResults>({})
+  const [isContinueDisabled, setIsContinueDisabled] = useState<boolean>(true)
 
   const handleSetResults = (data: IResultData): void => {
     setDataResults((prevDataResults: any) => {
@@ -45,18 +48,48 @@ export default function TabLayout() {
   };
 
   const handleSendResults = (userData: IUserData) => {
-    console.log(
-      'Resultados del Quiz', 
-      {
-        userData,
-        quiz: dataResults
-      });
+    if (isContinueDisabled)
+      Alert.alert(`Quiz's questions haven't been completed. Cannot send data.`)
+    else {
+      Alert.alert(`Thanks for your answers. Data it's being sending...`)
+      console.log(
+        'Resultados del Quiz',
+        {
+          userData,
+          quiz: dataResults
+        });
+    }
   }
+
+  const checkButtonEnabled = (): void => {
+    let allTopicsHaveSelection = true;
+    for (const topicId in dataResults) {
+        const resultsForTopic = dataResults[topicId];
+        let topicHasAllQuestionsAnswered = true;
+        for (const result of resultsForTopic) {
+          const selectedValues = Object.values(result.selectedObj);
+          if (!selectedValues.some(value => value === true)) {
+            topicHasAllQuestionsAnswered = false;
+            break;
+          }
+        }
+        if (!topicHasAllQuestionsAnswered && Object.keys(resultsForTopic[0].selectedObj).length > 0) {
+          allTopicsHaveSelection = false;
+          break;
+        }
+    }
+    setIsContinueDisabled(!allTopicsHaveSelection);
+  };
   
   const tabsContextValue = {
+    isContinueDisabled,
     handleSendResults,
     handleSetResults
   }
+
+  useEffect(() =>{
+    checkButtonEnabled()
+  }, [dataResults])
 
   return (
     <TabsContext.Provider value={tabsContextValue}>
