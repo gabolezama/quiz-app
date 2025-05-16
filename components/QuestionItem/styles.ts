@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
     container: {
@@ -8,10 +8,11 @@ export const styles = StyleSheet.create({
         alignItems: 'center'
     },
     list: {
-        maxWidth: '30%'
+        maxWidth: Platform.OS === 'ios'? '35%':'30%'
     },
     text: {
-        maxWidth: '70%',
+        maxWidth: Platform.OS === 'ios'? '65%':'70%',
+        paddingLeft: Platform.OS === 'ios'? '2%': 0,
         textAlign: 'justify'
     }
 })

@@ -1,8 +1,15 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 
 export const style = (isButtonDisabled: boolean) => StyleSheet.create({
-    mainContainer:{ display: 'flex', alignItems: 'center', padding: '5%' },
-    container: { width: '90%' },
+    mainContainer:{ 
+      display: 'flex', 
+      alignItems: 'center', 
+      padding: '5%',
+      paddingBottom: Platform.OS === 'ios'? '25%' : '5%'
+    },
+    container: { 
+      width: '90%' 
+    },
     boldStyle: {
       fontWeight: 'bold'
     },

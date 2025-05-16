@@ -2,7 +2,7 @@ import QuestionComponent from '@/components/QuestionComponent';
 import { getQuizQuestions, IQuizQuestions } from '@/utils/dataFetch';
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { FlatList, SafeAreaView, ScrollView, Text, TouchableOpacity } from 'react-native';
+import { FlatList, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { style } from '../stylesForScreen/index';
 import { useTabsContext } from './_layout';
 
@@ -26,24 +26,26 @@ export default function HomeScreen() {
   },[])
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <FlatList
-          data={quizQuestions}
-          renderItem={({ item }) => <QuestionComponent {...item} />}
-        />
-        <Text style={styles.centeredText}>
-          Once you finish answering these questions, we'll need some extra data to make your profile, this button will take you there:
-        </Text>
-        <TouchableOpacity 
-          style={styles.continueButton}
-          disabled={isContinueDisabled}
-          onPress={() => router.push('/about')}
-        >
-          <Text style={styles.buttonText}>
-            Continue
+        <View style={styles.container}>
+          <FlatList
+            data={quizQuestions}
+            renderItem={({ item }) => <QuestionComponent {...item} />}
+          />
+          <Text style={styles.centeredText}>
+            Once you finish answering these questions, we'll need some extra data to make your profile, this button will take you there:
           </Text>
-        </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.continueButton}
+            disabled={isContinueDisabled}
+            onPress={() => router.push('/about')}
+          >
+            <Text style={styles.buttonText}>
+              Continue
+            </Text>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

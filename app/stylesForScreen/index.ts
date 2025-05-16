@@ -1,9 +1,10 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 
 export const style = (isContinueDisabled: boolean) => 
     StyleSheet.create({
         container: {
-            padding: '5%'
+            padding: '5%',
+            paddingBottom: Platform.OS === 'ios'? '15%' : '5%'
         },
         centeredText:{textAlign: 'center'},
         continueButton: {
