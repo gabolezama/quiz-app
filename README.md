@@ -1,6 +1,11 @@
-# Welcome to your Expo app 👋
+# Welcome to Quiz App 👋
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This is a little app which render a form quiz in order to determine the user's economic profile. It is designed to work properly on both iOS and Android.
+
+## Technologies
+- Expo
+- Expo Router
+- React Native
 
 ## Get started
 
@@ -11,40 +16,34 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    ```
 
 2. Start the app
+   
+   If you are sure your pc and phone are in the same network execute this
 
    ```bash
    npx expo start
    ```
+   Your devices might be on different subnets even when they are in the same network, in that case execute
 
-In the output, you'll find options to open the app in a
+   ```bash
+   npx expo start --tunnel
+   ```
+3. Run Quiz App on your phone using Expo Go
+
+   Once you have executed the step 2 command, you should scann the QR code that appears on your console with your phone.
+   We assume that you should have installed Expo Go previously.
+
+   The server will start bundling the application. Once this process is complete, you will be able to see and interact with the app.
+
+If you want to learn more about other options that are available, please read the following docs:
 
 - [development build](https://docs.expo.dev/develop/development-builds/introduction/)
 - [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
 - [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
 - [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## App Short Description
 
-## Get a fresh project
+   This app consists of two screens: Quiz and About. The first one renders the questions that the user must complete so that the system can make an analysis of the user's economic profile. The second one provides the user with useful information about the quiz and below it shows a small form for users to provide their information so that they can receive the results via the email provided.
 
-When you're ready, run:
+   These two screens are linked by a tabs navigator, so feel free to use the tabs to switch between them. However, they are also linked by logic; you will not be able to send data if you haven't completed the quiz form first. In that case, an alert will pop up asking you to answer the questions and return later. Otherwise, if everything is okay and you provide your name and email, this alert will show a message indicating that your data will be sent.
 
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
